@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Погода</title>
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>Погода в Москве</h1>
+    <p>Температура: <span id="temp_val"></span> *C</p>
+    <p>Минимальная температура: <span id="min_temp_val"></span> *C</p>
+    <p>Максимальаня температура: <span id="max_temp_val"></span> *C</p>
+    <p>Давление: <span id="pressure_val"></span> мм</p>
+    <p>Ветер: <span id="wind_val"></span> м/с</p>
+    <script>
+      var settings = {
+        url: "https://ru.api.openweathermap.org/data/2.5/weather?lat=55.756&lon=37.618&units=metric&appid=a47ccf6881e62bc0d162455742fdda9d",
+        method: "GET",
+        timeout: 0,
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        document.getElementById("temp_val").innerText = response.main.temp;
+        document.getElementById("min_temp_val").innerText =
+          response.main.temp_min;
+        document.getElementById("max_temp_val").innerText =
+          response.main.temp_max;
+        document.getElementById("pressure_val").innerText = (
+          (response.main.pressure / 1000) *
+          750.1
+        ).toFixed(2);
+        document.getElementById("wind_val").innerText = response.wind.speed;
+      });
+    </script>
+  </body>
+</html>
